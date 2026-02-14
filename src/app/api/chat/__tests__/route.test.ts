@@ -271,7 +271,7 @@ describe("Chat API – ordering paths and edge cases", () => {
     it("returns text, cart, cartTotal, orderId on success", async () => {
       const data = await postChat({ message: "one latte" });
       expect(typeof data.text).toBe("string");
-      expect(data.text.length).toBeGreaterThan(0);
+      expect((data.text ?? "").length).toBeGreaterThan(0);
       expect(typeof data.cart).toBe("string");
       expect(typeof data.cartTotal).toBe("number");
       expect(data.orderComplete).toBe(false);
@@ -407,7 +407,7 @@ describe("Chat API – ordering paths and edge cases", () => {
       mockOrderStore.load = null;
       const second = await postChat({
         message: "Plain.",
-        history: [{ role: "assistant", text: first.text }],
+        history: [{ role: "assistant", text: first.text ?? "" }],
       });
       expect(second.cart).toMatch(/Plain Croissant/);
       expect(second.text).toMatch(/Got it|Anything else/i);

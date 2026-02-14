@@ -10,7 +10,10 @@ const display = DM_Serif_Display({
 
 const sans = Nunito_Sans({
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
   variable: "--font-geist-sans",
+  display: "swap",
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

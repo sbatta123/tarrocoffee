@@ -1,4 +1,5 @@
 "use client";
+/// <reference path="../types/speech.d.ts" />
 
 import { useCallback, useRef, useState, useEffect } from "react";
 import { Mic, MicOff, Send, MessageCircle, List, ShoppingBag } from "lucide-react";
