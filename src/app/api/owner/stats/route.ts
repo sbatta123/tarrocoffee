@@ -15,7 +15,7 @@ export async function GET() {
     const { data: orders } = await supabase
       .from("orders")
       .select("id, items, total_price, status, created_at")
-      .in("status", ["new", "in_progress", "completed"])
+      .in("status", ["pending", "new", "in_progress", "completed"])
       .gte("created_at", startIso)
       .order("created_at", { ascending: false });
 
@@ -41,7 +41,7 @@ export async function GET() {
       .sort((a, b) => b.count - a.count)
       .slice(0, 8);
 
-    const statusCounts = { new: 0, in_progress: 0, completed: 0 };
+    const statusCounts = { pending: 0, new: 0, in_progress: 0, completed: 0 };
     for (const o of list) {
       const s = (o.status as string) ?? "new";
       if (s in statusCounts) (statusCounts as Record<string, number>)[s]++;

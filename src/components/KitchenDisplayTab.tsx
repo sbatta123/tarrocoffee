@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import OrderTicketList, { type OrderTicket } from "@/app/dashboard/OrderTicketList";
 
-const POLL_INTERVAL_MS = 5_000;
+const POLL_INTERVAL_MS = 3_000;
 
 export default function KitchenDisplayTab() {
   const [orders, setOrders] = useState<OrderTicket[]>([]);
@@ -41,13 +41,22 @@ export default function KitchenDisplayTab() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
         <p className="text-[#5f473b] text-sm">
           Mark tickets In Progress, then Completed when done.
         </p>
-        <span className="bg-white px-3 py-1.5 rounded-lg border border-[#e8e2d8] text-xs text-[#5f473b]">
-          <span className="text-green-600 font-semibold">Online</span>
-        </span>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => fetchOrders()}
+            className="bg-white px-3 py-1.5 rounded-lg border border-[#e8e2d8] text-xs text-[#5f473b] hover:bg-[#f6f4f0] transition"
+          >
+            Refresh
+          </button>
+          <span className="bg-white px-3 py-1.5 rounded-lg border border-[#e8e2d8] text-xs text-[#5f473b]">
+            <span className="text-green-600 font-semibold">Online</span>
+          </span>
+        </div>
       </div>
       {orders.length > 0 ? (
         <OrderTicketList orders={orders} onStatusChange={fetchOrders} />

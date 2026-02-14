@@ -58,21 +58,19 @@ function HomeTabs() {
       </div>
 
       <div className="flex-1 w-full max-w-4xl mx-auto px-6 py-6 md:py-8">
-        {activeTab === "order" && (
-          <div>
-            <header className="text-center mb-6">
-              <h1 className="font-display text-3xl md:text-4xl text-[#2a1f1a] tracking-tight">
-                Order with your voice.
-              </h1>
-              <p className="mt-2 text-[#5f473b] max-w-lg mx-auto">
-                Talk to our AI cashier—or type. No app, no line.
-              </p>
-            </header>
-            <div className="flex justify-center">
-              <VoiceWidget onOpenMenu={() => setActiveTab("menu")} />
-            </div>
+        <div className={activeTab !== "order" ? "hidden" : undefined}>
+          <header className="text-center mb-6">
+            <h1 className="font-display text-3xl md:text-4xl text-[#2a1f1a] tracking-tight">
+              Order with your voice.
+            </h1>
+            <p className="mt-2 text-[#5f473b] max-w-lg mx-auto">
+              Talk to our AI cashier—or type. No app, no line.
+            </p>
+          </header>
+          <div className="flex justify-center">
+            <VoiceWidget onOpenMenu={() => setActiveTab("menu")} />
           </div>
-        )}
+        </div>
         {activeTab === "menu" && (
           <div className="max-h-[calc(100vh-12rem)] overflow-y-auto">
             <MenuContent />

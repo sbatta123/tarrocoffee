@@ -11,7 +11,7 @@ export async function GET() {
     const { data: orders } = await supabase
       .from("orders")
       .select("id, items, total_price, status, created_at")
-      .in("status", ["new", "in_progress", "completed"])
+      .in("status", ["pending", "new", "in_progress", "completed"])
       .order("created_at", { ascending: false });
 
     const list = (orders ?? []).map((o) => ({

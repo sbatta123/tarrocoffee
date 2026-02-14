@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export type OrderStatus = "new" | "in_progress" | "completed";
+export type OrderStatus = "pending" | "new" | "in_progress" | "completed";
 
 export interface OrderTicket {
   id: string;
@@ -13,7 +13,7 @@ export interface OrderTicket {
   created_at: string;
 }
 
-const STATUS_ORDER: OrderStatus[] = ["new", "in_progress", "completed"];
+const STATUS_ORDER: OrderStatus[] = ["new", "pending", "in_progress", "completed"];
 
 function statusSortKey(status: string): number {
   const i = STATUS_ORDER.indexOf(status as OrderStatus);
@@ -58,24 +58,29 @@ function TicketCard({
       ? "New"
       : order.status === "in_progress"
         ? "In Progress"
-        : "Completed";
+        : order.status === "pending"
+          ? "Cart"
+          : "Completed";
 
-  // New = red, In progress = yellow, Completed = grayed out (moved to bottom)
-  const colorClasses = {
+  // New = red, In progress = yellow, Completed = grayed out (moved to bottom), Pending = orange
+  const colorClasses: Record<string, string> = {
     new: "border-red-400 bg-red-50/90",
     in_progress: "border-yellow-400 bg-yellow-50/90",
     completed: "border-gray-300 bg-gray-100 opacity-70",
+    pending: "border-orange-400 bg-orange-50/90",
   };
-  const statusBg =
-    order.status === "new"
-      ? "bg-red-100 text-red-800"
-      : order.status === "in_progress"
-        ? "bg-yellow-100 text-yellow-800"
-        : "bg-green-100 text-green-800";
+  const statusBg: Record<string, string> = {
+    new: "bg-red-100 text-red-800",
+    in_progress: "bg-yellow-100 text-yellow-800",
+    completed: "bg-green-100 text-green-800",
+    pending: "bg-orange-100 text-orange-800",
+  };
+  const orderColor = colorClasses[order.status] ?? colorClasses.completed;
+  const orderStatusBg = statusBg[order.status] ?? statusBg.completed;
 
   return (
     <div
-      className={`border-2 p-6 rounded-xl shadow-sm flex justify-between items-start gap-6 transition-all ${colorClasses[order.status as OrderStatus] ?? colorClasses.completed} ${isCompleted ? "order-last" : ""}`}
+      className={`border-2 p-6 rounded-xl shadow-sm flex justify-between items-start gap-6 transition-all ${orderColor} ${isCompleted ? "order-last" : ""}`}
     >
       <div className="min-w-0 flex-1">
         <p className="font-bold text-xl text-gray-800">Order #{String(order.id).slice(0, 8)}</p>
@@ -91,7 +96,7 @@ function TicketCard({
           ${Number(order.total_price).toFixed(2)}
         </span>
         <span
-          className={`inline-block px-3 py-1 rounded-full text-sm font-medium uppercase tracking-wide ${statusBg}`}
+          className={`inline-block px-3 py-1 rounded-full text-sm font-medium uppercase tracking-wide ${orderStatusBg}`}
         >
           {statusLabel}
         </span>
@@ -100,7 +105,7 @@ function TicketCard({
         )}
         {!isCompleted && (
           <div className="flex flex-col sm:flex-row gap-2 mt-2">
-            {order.status === "new" && (
+            {(order.status === "new" || order.status === "pending") && (
               <button
                 type="button"
                 onClick={() => updateStatus("in_progress")}

@@ -8,7 +8,7 @@ interface OwnerStats {
   revenueToday: number;
   avgOrderValue: number;
   topItems: { name: string; count: number }[];
-  statusCounts: { new: number; in_progress: number; completed: number };
+  statusCounts: { pending?: number; new: number; in_progress: number; completed: number };
 }
 
 const POLL_INTERVAL_MS = 10_000;
@@ -113,7 +113,7 @@ export default function OwnerDashboard() {
             </div>
             <div>
               <p className="text-sm font-semibold text-[#2a1f1a]">
-                {statusCounts.new} new · {statusCounts.in_progress} in progress · {statusCounts.completed} done
+                {statusCounts.pending ? `${statusCounts.pending} cart · ` : ""}{statusCounts.new} new · {statusCounts.in_progress} in progress · {statusCounts.completed} done
               </p>
               <p className="text-xs text-[#8b6a51] uppercase tracking-wider">Queue</p>
             </div>
