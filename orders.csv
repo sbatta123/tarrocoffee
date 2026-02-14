@@ -1,0 +1,6 @@
+id,items,total_price,status,created_at
+550e8400-e29b-41d4-a716-446655440001,"1x Latte (Small) (Hot) (Oat Milk), 1x Plain Croissant",8.00,completed,2025-02-10T14:32:00Z
+550e8400-e29b-41d4-a716-446655440002,"1x Americano (Large) (Iced)",4.00,in_progress,2025-02-10T14:45:22Z
+550e8400-e29b-41d4-a716-446655440003,"2x Mocha (Small) (Hot) (Whole Milk), 1x Chocolate Croissant",13.00,new,2025-02-10T15:01:11Z
+550e8400-e29b-41d4-a716-446655440004,"1x Cold Brew (Large) (Oat Milk), 1x Banana Bread (Slice)",8.50,completed,2025-02-10T15:18:44Z
+550e8400-e29b-41d4-a716-446655440005,"1x Matcha Latte (Large) (Iced) (Almond Milk)",5.25,new,2025-02-10T15:30:00Z
