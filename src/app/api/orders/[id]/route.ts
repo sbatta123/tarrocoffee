@@ -38,9 +38,10 @@ export async function PATCH(
       .eq("id", id);
 
     if (error) {
-      console.error("Orders PATCH error:", error.message);
+      console.error("Orders PATCH error:", error.message, error.code);
+      const hint = "In Supabase: add an RLS policy on orders allowing UPDATE for anon, or disable RLS for the table.";
       return NextResponse.json(
-        { error: error.message || "Database update failed. If using Supabase, ensure RLS allows UPDATE on orders." },
+        { error: error.message, code: error.code, hint },
         { status: 500 }
       );
     }

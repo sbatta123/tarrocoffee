@@ -86,6 +86,23 @@ npm run test:stress
 
 ---
 
+## 5. Supabase: Kitchen display and order buttons
+
+If **orders don’t appear** on the Kitchen tab or **In Progress / Completed buttons don’t work**, Supabase Row Level Security (RLS) is likely blocking access.
+
+1. Open [Supabase Dashboard](https://supabase.com/dashboard) → your project → **Table Editor** → **orders**.
+2. Check **RLS** for the `orders` table:
+   - If RLS is **enabled** and you have no policies (or only restrictive ones), the app can’t read or update rows.
+   - **Quick fix for a demo:** Turn off RLS for `orders`: Table **orders** → **…** (menu) → **Disable RLS** (or add policies below).
+   - **Or add policies:** **Authentication** → **Policies** → **orders** → **New policy**:
+     - **Policy 1 (read):** “Allow public read” / “Enable read access for all users” (so GET /api/orders works).
+     - **Policy 2 (write):** “Allow public update” for `status` (or full row) so PATCH works.
+3. Ensure the table has columns: `id` (uuid), `items` (text), `total_price` (numeric), `status` (text), `created_at` (timestamptz). If you used a different schema, the API may need to match it.
+
+After changing RLS, reload the Kitchen tab and try the buttons again.
+
+---
+
 ## Security reminder
 
 - **Never commit `.env.local`** or paste real API keys into docs or chat.
