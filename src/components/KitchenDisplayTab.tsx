@@ -58,10 +58,6 @@ export default function KitchenDisplayTab() {
 
   return (
     <div>
-      <div className="mb-4 p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm">
-        <p className="font-medium">If &quot;In Progress&quot; or &quot;Completed&quot; flips back to red after a second</p>
-        <p className="mt-1">Supabase is blocking updates. Run the SQL in <code className="bg-amber-100 px-1 rounded">supabase-orders-policies.sql</code> in Supabase → SQL Editor (or disable RLS on the <code className="bg-amber-100 px-1 rounded">orders</code> table).</p>
-      </div>
       <div className="flex flex-wrap justify-between items-center gap-3 mb-4">
         <p className="text-[#5f473b] text-sm">
           Mark tickets In Progress, then Completed when done.
